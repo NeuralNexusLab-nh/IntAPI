@@ -37,7 +37,7 @@ app.get("/model/:id/:q", (req, res) => {
     })
       .then(res => res.json())
       .then(data => {
-        res.status(200).send(data)
+        res.status(200).send(data.choices[0].message.content)
       })
       .catch(err => res.status(503).send(err));
   } else {
@@ -60,7 +60,7 @@ app.get("/model/:q", (req, res) => {
   })
     .then(res => res.json())
     .then(data => {
-      res.status(200).send(data)
+      res.status(200).send(data.choices[0].message.content)
     })
     .catch(err => res.status(503).send(err));
 });
