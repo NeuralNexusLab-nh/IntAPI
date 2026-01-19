@@ -60,7 +60,7 @@ app.get("/model/:q", (req, res) => {
   })
     .then(res => res.json())
     .then(data => {
-      res.status(200).send(data.output[0].content[0].text)
+      res.status(200).send(data)
     })
     .catch(err => res.status(503).send(err));
 });
