@@ -24,7 +24,7 @@ app.get("/model/:id/:q", (req, res) => {
   const id = req.params.id;
   const q = req.params.q;
   if (list.includes(id)) {
-    fetch("https://api.chatanywhere.org/v1/responses/", {
+    fetch("https://api.chatanywhere.org/v1/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.key}`,
@@ -32,12 +32,12 @@ app.get("/model/:id/:q", (req, res) => {
       },
       body: JSON.stringify({
         model: id,
-        input: q
+        messages: [{role: "user", content: q}]
       })
     })
       .then(res => res.json())
       .then(data => {
-        res.status(200).send(data.output[0].content[0].text)
+        res.status(200).send(data)
       })
       .catch(err => res.status(503).send(err));
   } else {
@@ -47,7 +47,7 @@ app.get("/model/:id/:q", (req, res) => {
 
 app.get("/model/:q", (req, res) => {
   const q = req.params.q;
-  fetch("https://api.chatanywhere.org/v1/responses/", {
+  fetch("https://api.chatanywhere.org/v1/chat/completions", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${process.env.key}`,
@@ -55,7 +55,7 @@ app.get("/model/:q", (req, res) => {
     },
     body: JSON.stringify({
       model: "gpt-5-mini",
-      input: q
+      messages: [{role: "user", content: q}]
     })
   })
     .then(res => res.json())
