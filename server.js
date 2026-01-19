@@ -14,7 +14,8 @@ const list = [
 ]
 
 app.get("/", (req, res) => {
-  res.status(200).send(`Welcome to IntAPI! We provide many AI models, user just need to use HTTP GET to some endpoint and get the response. 
+  res.setHeader('Content-Type', 'text/plain');
+  res.status(200).send(`Welcome to IntAPI! We provide many AI models, you just need to use HTTP GET to our API endpoint and you can get the model's response. 
   Endpoint info: /model/{model-id}/{question} or get faster: /model/{question}, 
   aviliable model-ids: gpt-4o-mini, gpt-3.5-turbo, gpt-4.1-mini, gpt-4.1-nano, gpt-5-mini, and gpt-5-nano.
   `);
@@ -37,10 +38,15 @@ app.get("/model/:id/:q", (req, res) => {
     })
       .then(res => res.json())
       .then(data => {
+        res.setHeader('Content-Type', 'text/plain');
         res.status(200).send(data.choices[0].message.content)
       })
-      .catch(err => res.status(503).send(err));
+      .catch(err => {
+        res.setHeader('Content-Type', 'text/plain');
+        res.status(503).send(err);
+      });
   } else {
+    res.setHeader('Content-Type', 'text/plain');
     res.status(403).send("Invalid Model");
   }
 });
@@ -60,12 +66,17 @@ app.get("/model/:q", (req, res) => {
   })
     .then(res => res.json())
     .then(data => {
+      res.setHeader('Content-Type', 'text/plain');
       res.status(200).send(data.choices[0].message.content)
     })
-    .catch(err => res.status(503).send(err));
+    .catch(err => {
+      res.setHeader('Content-Type', 'text/plain');
+      res.status(503).send(err);
+    });
 });
 
 app.all("*", (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
   res.status(404).send("ERROR 404: Not Found.");
 });
     
