@@ -23,18 +23,36 @@ const models = [
 ============================ */
 app.get("/", (req, res) => {
   res.type("text/plain").send(
-`Welcome to IntAPI!
-Now supports OpenAI-compatible API at /v1
+`🌐 Welcome to IntAPI
 
-Endpoints:
-- GET  /v1/models
-- GET  /v1/models/:id
+IntAPI is a fast, simple, and OpenAI-compatible AI API service.
+If you already use the OpenAI SDK or OpenAI-style APIs, you can switch to IntAPI instantly by changing only the base URL.
+
+Base URL:
+https://intapi.zeabur.app/v1
+
+🔥 Recommended (Fastest & Fully Compatible):
 - POST /v1/chat/completions
 - POST /v1/responses
 
-Legacy:
-- /model/:id/:q
-- /model/:q
+These work with the official OpenAI SDK and support streaming.
+
+📦 Model Info:
+- GET /v1/models
+- GET /v1/models/:id
+
+⚡ Quick & Simple (Legacy):
+- GET /model/:id/:q
+- GET /model/:q
+
+Best for testing in browser, but slower and less flexible than /v1 APIs.
+
+✅ Works with:
+- OpenAI SDK
+- OpenAI-compatible clients
+- Existing OpenAI codebases
+
+Just change baseURL and you're ready to go.
 `
   );
 });
