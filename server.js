@@ -29,7 +29,7 @@ IntAPI is a fast, simple, and OpenAI-compatible AI API service.
 If you already use the OpenAI SDK or OpenAI-style APIs, you can switch to IntAPI instantly by changing only the base URL.
 
 Base URL:
-https://intapi.ndjp.net/v1
+https://intapi.zone.id/v1
 
 🔥 Recommended (Fastest & Fully Compatible):
 - POST /v1/chat/completions
