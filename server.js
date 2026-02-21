@@ -4,6 +4,11 @@ const bodyParser = require("body-parser");
 
 const app = express();
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "GET, POST");
+  next();
+});
 
 const PORT = process.env.PORT || 3000;
 const UPSTREAM = "https://api.chatanywhere.org/v1";
