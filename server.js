@@ -26,7 +26,7 @@ const models = [
 /* ============================
    Root
 ============================ */
-app.get("/", (req, res) => {
+app.all("/", (req, res) => {
   res.type("text/plain").send(
 `🌐 Welcome to IntAPI
 
@@ -69,7 +69,7 @@ Just change baseURL and you're ready to go.
 ============================ */
 
 /* ---- GET /v1/models ---- */
-app.get("/v1/models", (req, res) => {
+app.all("/v1/models", (req, res) => {
   res.json({
     object: "list",
     data: models.map(id => ({
@@ -81,7 +81,7 @@ app.get("/v1/models", (req, res) => {
 });
 
 /* ---- GET /v1/models/:id ---- */
-app.get("/v1/models/:id", (req, res) => {
+app.all("/v1/models/:id", (req, res) => {
   const id = req.params.id;
   if (!models.includes(id)) {
     return res.status(404).json({ error: { message: "Model not found" } });
@@ -94,7 +94,7 @@ app.get("/v1/models/:id", (req, res) => {
 });
 
 /* ---- POST /v1/chat/completions ---- */
-app.post("/v1/chat/completions", async (req, res) => {
+app.all("/v1/chat/completions", async (req, res) => {
   const {
     model = "gpt-5-mini",
     messages,
@@ -132,7 +132,7 @@ app.post("/v1/chat/completions", async (req, res) => {
 });
 
 /* ---- POST /v1/responses ---- */
-app.post("/v1/responses", async (req, res) => {
+app.all("/v1/responses", async (req, res) => {
   const {
     model = "gpt-5-mini",
     input,
@@ -192,7 +192,7 @@ app.post("/v1/responses", async (req, res) => {
    Legacy APIs (保留你原本的)
 ============================ */
 
-app.get("/model/:id/:q", async (req, res) => {
+app.all("/model/:id/:q", async (req, res) => {
   const { id, q } = req.params;
   if (!models.includes(id)) return res.status(403).send("Invalid Model");
 
@@ -215,7 +215,7 @@ app.get("/model/:id/:q", async (req, res) => {
   }
 });
 
-app.get("/model/:q", async (req, res) => {
+app.all("/model/:q", async (req, res) => {
   const q = req.params.q;
   try {
     const r = await fetch(`${UPSTREAM}/chat/completions`, {
