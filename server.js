@@ -6,7 +6,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Methods", "GET, POST");
+  res.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   next();
 });
 
@@ -58,6 +58,8 @@ Best for testing in browser, but slower and less flexible than /v1 APIs.
 - Existing OpenAI codebases
 
 Just change baseURL and you're ready to go.
+
+© NeuralNexusLab, All rights reserved.
 `
   );
 });
